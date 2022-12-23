@@ -1,0 +1,165 @@
+.cube .front {
+  transform: translateZ(calc(var(--size) / 2));
+}
+
+.cube .back {
+  transform: rotateX(-180deg) translateZ(calc(var(--size) / 2));
+}
+
+.cube .right {
+  transform: rotateY(90deg) translateZ(calc(var(--size) / 2));
+}
+
+.cube .left {
+  transform: rotateY(-90deg) translateZ(calc(var(--size) / 2));
+}
+
+.cube .top {
+  transform: rotateX(90deg) translateZ(calc(var(--size) / 2));
+}
+
+.cube .bottom {
+  transform: rotateX(-90deg) translateZ(calc(var(--size) / 2));
+}
+
+.container {
+  --size: 100px;
+
+  width: var(--size);
+  height: var(--size);
+  position: relative;
+  box-sizing: content-box;
+  /* margin: 0 auto 40px; */
+
+  perspective: 1000px;
+  perspective-origin: 50% 100%;
+}
+
+.container div {
+  box-sizing: content-box;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  top: calc(var(--size) / 2);
+  position: relative;
+
+  transform-style: preserve-3d;
+
+  transition: transform 3s;
+}
+
+.cube:hover {
+  cursor: pointer;
+}
+
+.cube div {
+  background: var(--face-color);
+  display: block;
+  position: absolute;
+  width: var(--size);
+  height: calc(var(--size) / 2);
+  border: 2px solid var(--outline-color);
+
+  margin: 0 auto;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 500%;
+  text-align: center;
+  padding: calc(var(--size) / 4) 0;
+}
+
+.dot {
+  display: block;
+  position: absolute;
+  width: calc(var(--size) / 6);
+  height: calc(var(--size) / 6);
+  background: var(--dot-color);
+  border-radius: 15px;
+}
+
+.front .dot1 {
+  top: calc(var(--size) * 0.425);
+  left: calc(var(--size) * 0.425);
+}
+.back .dot1 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.225);
+}
+.back .dot2 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.625);
+}
+.right .dot1 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.225);
+}
+.right .dot2 {
+  top: calc(var(--size) * 0.425);
+  left: calc(var(--size) * 0.425);
+}
+.right .dot3 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.625);
+}
+.left .dot1 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.225);
+}
+.left .dot2 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.625);
+}
+.left .dot3 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.225);
+}
+.left .dot4 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.625);
+}
+.top .dot1 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.225);
+}
+.top .dot2 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.625);
+}
+.top .dot3 {
+  top: calc(var(--size) * 0.425);
+  left: calc(var(--size) * 0.425);
+}
+.top .dot4 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.225);
+}
+.top .dot5 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.625);
+}
+.bottom .dot1 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.225);
+}
+.bottom .dot2 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.425);
+}
+.bottom .dot3 {
+  top: calc(var(--size) * 0.225);
+  left: calc(var(--size) * 0.625);
+}
+.bottom .dot4 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.225);
+}
+.bottom .dot5 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.425);
+}
+.bottom .dot6 {
+  top: calc(var(--size) * 0.625);
+  left: calc(var(--size) * 0.625);
+}

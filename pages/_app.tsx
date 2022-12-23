@@ -1,3 +1,4 @@
+import "../styles/global.css";
 import type { AppProps } from "next/app";
 import { getRoll, RoomProvider } from "../src/store";
 import { ClientSideSuspense } from "@liveblocks/react";

@@ -1,5 +1,7 @@
 import { LiveList } from "@liveblocks/client";
 import Head from "next/head";
+// import OpenProps from "open-props";
+import { Die } from "../components/die";
 import {
   getRoll,
   useMutation,
@@ -36,6 +38,15 @@ export default function Home() {
   );
   const roller = useStorage(({ roller }) => roller);
   const updateMyPresence = useUpdateMyPresence();
+
+  // const colors = [
+  //   "white",
+  //   "white",
+  //   OpenProps["--red-9"],
+  //   OpenProps["--yellow-4"],
+  //   OpenProps["--green-9"],
+  //   OpenProps["--blue-9"],
+  // ];
 
   return (
     <>
@@ -89,6 +100,31 @@ export default function Home() {
           );
         })}
       </ul>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr",
+        }}
+      >
+        {rolls.map((roll, i) => {
+          return (
+            <div
+              key={i}
+              style={{
+                position: "relative",
+              }}
+            >
+              <Die
+                faceColor={`var(--die-${i + 1})`}
+                outlineColor="black"
+                dotColor="black"
+                xRand={roll[0]}
+                yRand={roll[1]}
+              />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }
