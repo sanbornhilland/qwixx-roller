@@ -93,10 +93,9 @@ function Main() {
           </button>
         </div>
         <div
+          className={globalStyles.hFlex}
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            paddingTop: "var(--size-4)",
+            ["--justify" as any]: "space-between",
           }}
         >
           {rolls.map((roll, i) => {
