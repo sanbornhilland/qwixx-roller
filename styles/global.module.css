@@ -8,6 +8,7 @@
   background: white;
   position: absolute;
   width: 100%;
+  padding-block: var(--primary-padding);
 }
 
 .header .content {
@@ -15,32 +16,28 @@
   margin: auto;
 }
 
-.mainHeader {
-  text-align: center;
-}
-
 .vFlex {
-  --gap: var(--size-6);
+  --gap: var(--primary-gap);
   --justify: center;
-  --padding: var(--size-4);
+  --padding: var(--primary-padding);
 
   display: flex;
   flex-direction: column;
   justify-content: var(--justify);
   gap: var(--gap);
-  padding: var(--padding);
+  padding-inline: var(--padding);
 }
 
 .hFlex {
-  --gap: var(--size-6);
+  --gap: var(--primary-gap);
   --justify: center;
-  --padding: var(--size-4);
+  --padding: var(--primary-padding);
 
   display: flex;
   flex-direction: row;
   justify-content: var(--justify);
   gap: var(--gap);
-  padding: var(--padding);
+  padding-inline: var(--padding);
   flex-wrap: wrap;
 }
 
@@ -49,3 +46,5 @@
   border-radius: var(--radius-3);
   padding: var(--size-4) var(--size-8);
 }
+
+@media;

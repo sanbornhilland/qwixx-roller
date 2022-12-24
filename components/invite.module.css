@@ -15,4 +15,5 @@
   background: white;
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-4);
+  margin: var(--primary-gap);
 }

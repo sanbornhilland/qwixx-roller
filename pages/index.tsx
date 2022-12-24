@@ -81,21 +81,47 @@ function Main() {
           <input name="name"></input>
         </label>
       </form> */}
-        <div className={globalStyles.hFlex}>
-          <button
-            className={globalStyles.rollButton}
-            disabled={!!roller}
-            onClick={() => {
-              roll();
-            }}
-          >
-            Roll
-          </button>
+        <div
+          className={globalStyles.vFlex}
+          style={{
+            ["--gap" as any]: "var(--size-2)",
+          }}
+        >
+          <ul className={avatarStyles.avatarList}>
+            <li>
+              <Avatar
+                name={self.presence.name}
+                isRolling={self.presence.id === roller}
+              ></Avatar>
+            </li>
+            {others.map((other) => {
+              return (
+                <li key={other.id}>
+                  <Avatar
+                    name={other.presence.name}
+                    isRolling={other.presence.id === roller}
+                  ></Avatar>
+                </li>
+              );
+            })}
+          </ul>
+          <div className={globalStyles.hFlex}>
+            <p>
+              {!roller ? (
+                `No one is rolling`
+              ) : (
+                <span>
+                  <strong>{getRollerName(roller, self, others)}</strong> is
+                  rolling{" "}
+                </span>
+              )}
+            </p>
+          </div>
         </div>
         <div
           className={globalStyles.hFlex}
           style={{
-            ["--justify" as any]: "space-between",
+            ["--justify" as any]: "center",
           }}
         >
           {rolls.map((roll, i) => {
@@ -117,37 +143,16 @@ function Main() {
             );
           })}
         </div>
-        <div
-          className={globalStyles.vFlex}
-          style={{
-            ["--gap" as any]: "var(--size-2)",
-          }}
-        >
-          <div className={globalStyles.hFlex}>
-            <p>
-              {!roller
-                ? `No one is rolling`
-                : `${getRollerName(roller, self, others)} is rolling`}
-            </p>
-          </div>
-          <ul className={avatarStyles.avatarList}>
-            <li>
-              <Avatar
-                name={self.presence.name}
-                isRolling={self.presence.id === roller}
-              ></Avatar>
-            </li>
-            {others.map((other) => {
-              return (
-                <li key={other.id}>
-                  <Avatar
-                    name={other.presence.name}
-                    isRolling={other.presence.id === roller}
-                  ></Avatar>
-                </li>
-              );
-            })}
-          </ul>
+        <div className={globalStyles.hFlex}>
+          <button
+            className={globalStyles.rollButton}
+            disabled={!!roller}
+            onClick={() => {
+              roll();
+            }}
+          >
+            Roll
+          </button>
         </div>
       </main>
       {isInviteOpen ? (

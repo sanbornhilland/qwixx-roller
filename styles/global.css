@@ -12,6 +12,8 @@
   --die-6: var(--blue-9);
 
   --max-width: 840px;
+  --primary-gap: var(--size-4);
+  --primary-padding: var(--size-3);
 }
 
 #__next {
@@ -25,4 +27,11 @@ button {
 
 input {
   display: block;
+}
+
+@media (min-width: 641px) {
+  :root {
+    --primary-gap: var(--size-6);
+    --primary-padding: var(--size-5);
+  }
 }
