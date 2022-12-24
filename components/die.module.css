@@ -49,10 +49,6 @@
   transition: transform 3s;
 }
 
-.cube:hover {
-  cursor: pointer;
-}
-
 .cube div {
   background: var(--face-color);
   display: block;

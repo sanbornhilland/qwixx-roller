@@ -96,7 +96,7 @@ function Main() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            padding: "var(--size-8)",
+            paddingTop: "var(--size-4)",
           }}
         >
           {rolls.map((roll, i) => {

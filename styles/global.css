@@ -1,5 +1,6 @@
-@import "https://unpkg.com/open-props";
-@import "https://unpkg.com/open-props/normalize.min.css";
+@import "open-props/style";
+@import "open-props/normalize";
+@import "open-props/buttons";
 @import "open-props/colors-hsl";
 
 :root {
@@ -10,7 +11,7 @@
   --die-5: var(--green-9);
   --die-6: var(--blue-9);
 
-  --max-width: 960px;
+  --max-width: 840px;
 }
 
 #__next {
