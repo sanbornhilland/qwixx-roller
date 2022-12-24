@@ -1,17 +1,27 @@
 import { LiveList } from "@liveblocks/client";
 import Head from "next/head";
-// import OpenProps from "open-props";
+import { Avatar } from "../components/avatar";
+import avatarStyles from "../components/avatar.module.css";
+import globalStyles from "../styles/global.module.css";
 import { Die } from "../components/die";
 import {
   getRoll,
+  getRollerName,
+  RoomProvider,
   useMutation,
   useOthers,
   useSelf,
   useStorage,
   useUpdateMyPresence,
 } from "../src/store";
+import { GetServerSideProps } from "next";
+import { ClientSideSuspense } from "@liveblocks/react";
+import { useState } from "react";
+import { Invite } from "../components/invite";
 
-export default function Home() {
+function Main() {
+  const [isInviteOpen, setIsInviteOpen] = useState(false);
+
   const others = useOthers();
   const self = useSelf();
   const rolls = useStorage(({ rolls }) => rolls);
@@ -28,35 +38,31 @@ export default function Home() {
           getRoll(),
         ])
       );
-      storage.set("roller", self.presence.name);
+      storage.set("roller", self.presence.id);
 
       setTimeout(() => {
         storage.set("roller", null);
-      }, 5000);
+      }, 3000);
     },
     [self.presence.name]
   );
   const roller = useStorage(({ roller }) => roller);
   const updateMyPresence = useUpdateMyPresence();
 
-  // const colors = [
-  //   "white",
-  //   "white",
-  //   OpenProps["--red-9"],
-  //   OpenProps["--yellow-4"],
-  //   OpenProps["--green-9"],
-  //   OpenProps["--blue-9"],
-  // ];
-
   return (
     <>
-      <Head>
-        <title>Create Next App</title>
-        <meta name="description" content="Qwixx Roller" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <form
+      <header className={globalStyles.header}>
+        <div
+          className={`${globalStyles.content} ${globalStyles.hFlex}`}
+          style={{
+            ["--justify" as any]: "flex-end",
+          }}
+        >
+          <button onClick={() => setIsInviteOpen(true)}>Invite</button>
+        </div>
+      </header>
+      <main className={`${globalStyles.main} ${globalStyles.vFlex}`}>
+        {/* <form
         onSubmit={(event) => {
           event.preventDefault();
 
@@ -74,57 +80,144 @@ export default function Home() {
           Name
           <input name="name"></input>
         </label>
-      </form>
-      <h2>Users</h2>
-      <ul>
-        <li>{self.presence.name}</li>
-        {others.map((other) => {
-          return <li key={other.id}>{other.presence.name}</li>;
-        })}
-      </ul>
-      <h2>Data</h2>
-      <p>{roller ? roller : "No one"} is rolling</p>
-      <button
-        onClick={() => {
-          roll();
-        }}
-      >
-        Roll
-      </button>
-      <ul>
-        {rolls.map((roll, i) => {
-          return (
-            <li key={i}>
-              {roll[0]}, {roll[1]}
+      </form> */}
+        <div className={globalStyles.hFlex}>
+          <button
+            className={globalStyles.rollButton}
+            disabled={!!roller}
+            onClick={() => {
+              roll();
+            }}
+          >
+            Roll
+          </button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "var(--size-8)",
+          }}
+        >
+          {rolls.map((roll, i) => {
+            return (
+              <div
+                key={i}
+                style={{
+                  position: "relative",
+                }}
+              >
+                <Die
+                  faceColor={`var(--die-${i + 1})`}
+                  outlineColor="black"
+                  dotColor="black"
+                  xRand={roll[0]}
+                  yRand={roll[1]}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div
+          className={globalStyles.vFlex}
+          style={{
+            ["--gap" as any]: "var(--size-2)",
+          }}
+        >
+          <div className={globalStyles.hFlex}>
+            <p>
+              {!roller
+                ? `No one is rolling`
+                : `${getRollerName(roller, self, others)} is rolling`}
+            </p>
+          </div>
+          <ul className={avatarStyles.avatarList}>
+            <li>
+              <Avatar
+                name={self.presence.name}
+                isRolling={self.presence.id === roller}
+              ></Avatar>
             </li>
-          );
-        })}
-      </ul>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr",
-        }}
-      >
-        {rolls.map((roll, i) => {
-          return (
-            <div
-              key={i}
-              style={{
-                position: "relative",
-              }}
-            >
-              <Die
-                faceColor={`var(--die-${i + 1})`}
-                outlineColor="black"
-                dotColor="black"
-                xRand={roll[0]}
-                yRand={roll[1]}
-              />
-            </div>
-          );
-        })}
-      </div>
+            {others.map((other) => {
+              return (
+                <li key={other.id}>
+                  <Avatar
+                    name={other.presence.name}
+                    isRolling={other.presence.id === roller}
+                  ></Avatar>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </main>
+      {isInviteOpen ? (
+        <Invite
+          onClose={() => {
+            setIsInviteOpen(false);
+          }}
+        />
+      ) : null}
     </>
   );
 }
+
+type HomeProps = {
+  name: string;
+  roomId: string;
+};
+
+export default function Home(props: HomeProps) {
+  return (
+    <>
+      <Head>
+        <title>Create Next App</title>
+        <meta name="description" content="Qwixx Roller" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <RoomProvider
+        id="my-room-id"
+        initialPresence={{
+          name: props.name,
+          id: Math.floor(Math.random() * 1000),
+        }}
+        initialStorage={{
+          rolls: new LiveList([
+            getRoll(),
+            getRoll(),
+            getRoll(),
+            getRoll(),
+            getRoll(),
+            getRoll(),
+          ]),
+          roller: null,
+        }}
+      >
+        <ClientSideSuspense fallback={<div>Loading...</div>}>
+          {() => <Main />}
+        </ClientSideSuspense>
+      </RoomProvider>
+    </>
+  );
+}
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (
+  context
+) => {
+  let { roomId, name } = context.query;
+
+  if (typeof roomId !== "string") {
+    roomId = "";
+  }
+  if (typeof name !== "string") {
+    name = "Unknown";
+  }
+
+  return {
+    props: {
+      roomId,
+      name,
+    },
+  };
+};

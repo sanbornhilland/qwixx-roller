@@ -1,0 +1,47 @@
+.main {
+  max-width: var(--max-width);
+  margin: auto;
+  height: 100%;
+}
+
+.header {
+  padding: var(--size-4);
+  background: white;
+  position: absolute;
+  width: 100%;
+}
+
+.header .content {
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+.mainHeader {
+  text-align: center;
+}
+
+.vFlex {
+  --gap: var(--size-6);
+  --justify: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: var(--justify);
+  gap: var(--gap);
+}
+
+.hFlex {
+  --gap: var(--size-6);
+  --justify: center;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: var(--justify);
+  gap: var(--gap);
+}
+
+.rollButton {
+  font-size: var(--font-size-6);
+  border-radius: var(--radius-3);
+  padding: var(--size-4) var(--size-8);
+}

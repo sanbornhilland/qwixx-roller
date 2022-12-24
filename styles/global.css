@@ -1,5 +1,6 @@
 @import "https://unpkg.com/open-props";
 @import "https://unpkg.com/open-props/normalize.min.css";
+@import "open-props/colors-hsl";
 
 :root {
   --die-1: white;
@@ -8,4 +9,19 @@
   --die-4: var(--yellow-4);
   --die-5: var(--green-9);
   --die-6: var(--blue-9);
+
+  --max-width: 960px;
+}
+
+#__next {
+  height: 100vh;
+}
+
+button {
+  padding: var(--size-2) var(--size-4);
+  border-radius: var(--radius-2);
+}
+
+input {
+  display: block;
 }

@@ -1,0 +1,18 @@
+.cover {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: hsl(var(--gray-5-hsl) / 60%);
+}
+
+.modal {
+  padding: var(--size-6);
+  background: white;
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-4);
+}
