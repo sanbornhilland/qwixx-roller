@@ -63,25 +63,6 @@ function Main() {
         </div>
       </header>
       <main className={`${globalStyles.main} ${globalStyles.vFlex}`}>
-        {/* <form
-        onSubmit={(event) => {
-          event.preventDefault();
-
-          const data = new FormData(event.currentTarget);
-          const name = data.get("name");
-
-          if (typeof name !== "string") {
-            return;
-          }
-
-          updateMyPresence({ name });
-        }}
-      >
-        <label>
-          Name
-          <input name="name"></input>
-        </label>
-      </form> */}
         <div
           className={globalStyles.vFlex}
           style={{
