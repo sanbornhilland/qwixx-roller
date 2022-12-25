@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import ShortUniqueId from "short-unique-id";
 import globalStyles from "../styles/global.module.css";
 
@@ -8,6 +9,7 @@ uid.setDictionary("alpha_upper");
 
 export default function Home() {
   const router = useRouter();
+  const [name, setName] = useState("");
 
   return (
     <>
@@ -19,15 +21,26 @@ export default function Home() {
       </Head>
       <main className={`${globalStyles.main} ${globalStyles.vFlex}`}>
         <div className={globalStyles.hFlex}>
-          <button
-            onClick={(event) => {
+          <form
+            className={globalStyles.vFlex}
+            onSubmit={(event) => {
               event.preventDefault();
-
-              router.push(`/${uid()}`);
+              router.push(`/${uid()}?name=${name}`);
             }}
           >
-            Create Game
-          </button>
+            <label>
+              Name
+              <input
+                value={name}
+                onInput={(event) => {
+                  event.preventDefault();
+
+                  setName(event.currentTarget.value.trim());
+                }}
+              ></input>
+            </label>
+            <button disabled={name === ""}>Create Game</button>
+          </form>
         </div>
       </main>
     </>
