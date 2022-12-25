@@ -5,6 +5,7 @@ import avatarStyles from "../components/avatar.module.css";
 import globalStyles from "../styles/global.module.css";
 import { Die } from "../components/die";
 import {
+  getRandomHsl,
   getRoll,
   getRollerName,
   RoomProvider,
@@ -74,6 +75,7 @@ function Main() {
               <Avatar
                 name={self.presence.name}
                 isRolling={self.presence.id === roller}
+                color={self.presence.avatarColor}
               ></Avatar>
             </li>
             {others.map((other) => {
@@ -82,6 +84,7 @@ function Main() {
                   <Avatar
                     name={other.presence.name}
                     isRolling={other.presence.id === roller}
+                    color={other.presence.avatarColor}
                   ></Avatar>
                 </li>
               );
@@ -174,6 +177,7 @@ export default function Home(props: HomeProps) {
         initialPresence={{
           name: props.name,
           id: Math.floor(Math.random() * 1000),
+          avatarColor: getRandomHsl(),
         }}
         initialStorage={{
           rolls: new LiveList([

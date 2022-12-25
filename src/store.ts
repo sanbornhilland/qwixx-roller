@@ -14,12 +14,17 @@ const client = createClient({
 export type Presence = {
   name: string;
   id: number;
+  avatarColor: string;
 };
 
 export type Storage = {
   rolls: LiveList<Roll>;
   roller: number | null;
 };
+
+export function rand(max: number, min: number) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 export function getRandom(max = 24, min = 1) {
   return (Math.floor(Math.random() * (max - min)) + min) * 90;
@@ -29,6 +34,10 @@ export type Roll = [number, number];
 
 export function getRoll(): Roll {
   return [getRandom(), getRandom()];
+}
+
+export function getRandomHsl() {
+  return `${rand(365, 0)} ${rand(100, 0)}% ${rand(100, 0)}%`;
 }
 
 export function getRollerName(
